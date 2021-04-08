@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/")
 public class HomeController {
 
-	@RequestMapping(value="index.do")	
+	@RequestMapping(value="index")	
 	public String index() {
 		
-		return "index";
+		return "product/list_product";
 	}
 	
 	@RequestMapping(value="ready")	
