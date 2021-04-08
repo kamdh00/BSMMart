@@ -1,5 +1,5 @@
 <%--informationListBoard.jsp--%>
-<%@page contentType="text/html; charset=euc-kr"%>
+<%@page contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -9,7 +9,7 @@
 	if(admin != null){
 %>
 	<form action="${pageContext.request.contextPath}/templete.jsp?content=informationWriteForm">
-		<input type="submit" value="»õ ±Û" />
+		<input type="submit" value="ìƒˆ ê¸€" />
 	</form>
 <%
 	}
@@ -24,15 +24,15 @@
 						<!-- Main Content -->
 							<section>
 								<header>
-									<h2>°í°´¼¾ÅÍ</h2>
-									<h3>°øÁö»çÇ× ¹× »ç¿ëÀÚ °Ô½ÃÆÇ</h3>
+									<h2>ê³ ê°ì„¼í„°</h2>
+									<h3>ê³µì§€ì‚¬í•­ ë° ì‚¬ìš©ìž ê²Œì‹œíŒ</h3>
 								</header>
 									<table border="1" align="center">
 									<c:if test="${not empty requestScope.informationList }">
 										<tr style="border-bottom:solid 1px #ccc;">
-											<td width="50"  align="center" style="border-right:solid 1px #ccc;">¹øÈ£</td>
-											<td width="200" align="center" style="border-right:solid 1px #ccc;">Á¦¸ñ</td>
-											<td style="margin:10px; padding:5px;">ÀÛ¼ºÀÏ</td>
+											<td width="50"  align="center" style="border-right:solid 1px #ccc;">ë²ˆí˜¸</td>
+											<td width="200" align="center" style="border-right:solid 1px #ccc;">ì œëª©</td>
+											<td style="margin:10px; padding:5px;">ìž‘ì„±ì¼</td>
 										</tr>
 										<c:forEach var="informationBoard" items="${requestScope.informationList}" varStatus="loop">
 										<tr>
@@ -47,7 +47,7 @@
 										</c:forEach>
 									</c:if>
 									<c:if test="${empty requestScope.informationList }">
-											<p><tr><td colspan="5">µî·ÏµÈ °Ô½Ã¹°ÀÌ ¾ø½À´Ï´Ù.</td></tr></p>	
+											<p><tr><td colspan="5">ë“±ë¡ëœ ê²Œì‹œë¬¼ì´ ì—†ìŠµë‹ˆë‹¤.</td></tr></p>	
 									</c:if>
 								</table>
 							</section>
