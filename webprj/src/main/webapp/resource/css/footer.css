@@ -1,0 +1,6 @@
+@CHARSET "EUC-KR";
+
+#footer_wrap{width:100%; height:50px; background-image: url("../img/footer_bg.gif"); background-repeat: repeat-x;}
+#footer{width:798px;}
+#footer img{float:left; margin-top:5px;}
+#footer p{float:left; margin-top:7px; margin-left:10px; font-family:µ¸¿ò,sans-serif; font-size:12px; color:white; }

@@ -1,0 +1,8 @@
+@CHARSET "EUC-KR";
+
+#content{width:100%;}
+#product_list{width:900px;}
+#product_list_bar p{font-family:µ¸¿ò,sans-serif; font-size:12px; margin-top:15px;}
+#product_table{margin-top:15px; margin-bottom: 20px;}
+#product_list_style{padding-left:10px; padding-right:10px;}
+.flot{float:left; padding-bottom:20px;}

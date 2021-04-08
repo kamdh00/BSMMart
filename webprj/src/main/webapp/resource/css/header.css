@@ -1,0 +1,12 @@
+@CHARSET "EUC-KR";
+
+  	#header_wrap{width:100%;}
+  	#header{width:800px;}
+  	#logo{float:left; margin-top:10px;}
+  	#search{float:left; margin-top: 38px; margin-left:10px;}
+  	#client_form{float:right; margin-top:45px; margin-left:5px;}
+  	#client_form ul li{float:left;}
+  	#nav{width:100%; background-image: url(../img/menubar_bg.gif); background-repeat: repeat-x; position:relative;}
+  	#nav_center{width:798px;}
+	#nav1, #nav2, #nav3, #nav4, #nav5{float:left;}
+	#header p{margin-top:2px; font-family:µ¸¿ò,sans-serif;font-size:12px;}	

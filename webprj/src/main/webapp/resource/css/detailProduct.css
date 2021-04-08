@@ -1,0 +1,13 @@
+@CHARSET "EUC-KR";
+
+#content{width:100%;}
+#details{margin-top: 30px;}
+#product_detail{width:900px; height:380px;}
+#product_detail_img{width:380px; height:380px; background-color:#CCCBB5}
+#img_center{padding:15px; width:350px; height:350px;}
+#product_name{font-size:30px; font-weight:bold;}
+.product_d{font-size:15px; font-weight:bold; color:#787878}
+#total_price{width:450px; padding:5px; margin:5px; font-size:18px; font-weight:bold; background:#CCCBB5; border:solid 1px #787878;}
+.p_line{border-bottom:dotted 2px #787878;}
+#cart_button{padding-top:15px;}
+#detailcut{padding-top:30px; padding-bottom:30px;}

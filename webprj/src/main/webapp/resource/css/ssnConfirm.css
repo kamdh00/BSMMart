@@ -1,0 +1,7 @@
+@CHARSET "EUC-KR";
+
+
+#ssn_font{font-size:12px; border:solid 1px #ccc;}
+.border_top{border-top:solid 1px #ccc; padding-top:10px;}
+.border_top a{text-decoration:none; color:#ccc;}
+.paddint_top{padding-top:7px;}

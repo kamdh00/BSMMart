@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="root.*"
+		template="/WEB-INF/view/layout.jsp">
+		<put-attribute name="title" value="공지사항" />
+		<put-attribute name="header"
+			value="/WEB-INF/view/inc/header.jsp" />		
+		<put-attribute name="body"
+			value="/WEB-INF/view/{1}.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/view/inc/footer.jsp" />
+	</definition>
+	<definition name="notice.*"
+		template="/WEB-INF/view/customer/inc/layout.jsp">
+		<put-attribute name="title" value="공지사항" />
+		<put-attribute name="header"
+			value="/WEB-INF/view/inc/header.jsp" />
+		<put-attribute name="visual"
+			value="/WEB-INF/view/customer/inc/visual.jsp" />
+		<put-attribute name="aside"
+			value="/WEB-INF/view/customer/inc/aside.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/customer/notice/{1}.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/view/inc/footer.jsp" />
+	</definition>
+	<definition name="product/*"
+		template="/WEB-INF/view/layout.jsp">
+		<put-attribute name="title" value="공지사항" />
+		<put-attribute name="header"
+			value="/WEB-INF/view/header.jsp" />
+		<!-- <put-attribute name="visual"
+			value="/WEB-INF/view/customer/inc/visual.jsp" /> -->
+		<put-attribute name="aside"
+			value="/WEB-INF/view/aside.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/product/{1}.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/view/footer.jsp" />
+	</definition>
+	<definition name="user/*"
+		template="/WEB-INF/view/layout.jsp">
+		<put-attribute name="title" value="공지사항" />
+		<put-attribute name="header"
+			value="/WEB-INF/view/header.jsp" />
+		<!-- <put-attribute name="visual"
+			value="/WEB-INF/view/customer/inc/visual.jsp" /> -->
+		<put-attribute name="aside"
+			value="/WEB-INF/view/aside.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/user/{1}.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/view/footer.jsp" />
+	</definition>
+	<definition name="information/*"
+		template="/WEB-INF/view/layout.jsp">
+		<put-attribute name="title" value="공지사항" />
+		<put-attribute name="header"
+			value="/WEB-INF/view/header.jsp" />
+		<!-- <put-attribute name="visual"
+			value="/WEB-INF/view/customer/inc/visual.jsp" /> -->
+		<put-attribute name="aside"
+			value="/WEB-INF/view/aside.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/information/{1}.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/view/footer.jsp" />
+	</definition>
+	<definition name="temp/*"
+		template="/WEB-INF/view/temp/layout2.jsp">
+		<put-attribute name="title" value="공지사항" />
+		<put-attribute name="header"
+			value="/WEB-INF/view/header.jsp" />
+		<!-- <put-attribute name="visual"
+			value="/WEB-INF/view/customer/inc/visual.jsp" /> -->
+		<put-attribute name="aside"
+			value="/WEB-INF/view/aside.jsp" />
+		<!-- <put-attribute name="body"
+			value="/WEB-INF/view/temp/{1}.jsp" /> -->
+		<put-attribute name="footer"
+			value="/WEB-INF/view/footer.jsp" />
+	</definition>
+	<definition name="parsing/*"
+		template="/WEB-INF/view/layout.jsp">
+		<put-attribute name="title" value="공지사항" />
+		<put-attribute name="header"
+			value="/WEB-INF/view/header.jsp" />
+		<!-- <put-attribute name="visual"
+			value="/WEB-INF/view/customer/inc/visual.jsp" /> -->
+		<put-attribute name="aside"
+			value="/WEB-INF/view/aside.jsp" />
+		<put-attribute name="body"
+			value="/WEB-INF/view/parsing/{1}.jsp" />
+		<put-attribute name="footer"
+			value="/WEB-INF/view/footer.jsp" />
+	</definition>
+</tiles-definitions>

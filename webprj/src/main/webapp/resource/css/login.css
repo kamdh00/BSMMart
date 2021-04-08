@@ -1,0 +1,5 @@
+@CHARSET "utf-8";
+
+/* #login{border:solid 1px #ccc;} */
+#login_bg{padding-left:25px; padding-bottom:5px; background-image: url(../img/login/bullet_9.gif);background-repeat:no-repeat; background-position:5px;}
+.login_font{font-size:12px;}
