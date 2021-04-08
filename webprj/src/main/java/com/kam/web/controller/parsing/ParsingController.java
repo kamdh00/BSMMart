@@ -10,13 +10,18 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +29,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import org.xml.sax.SAXException;
 
 import com.kam.web.vo.ParsingVO;
+import com.kam.web.vo.ProductVO;
 
 @Controller
 @RequestMapping("/parsing/")
@@ -146,6 +149,82 @@ public class ParsingController {
 		model.addAttribute("listParsing", list);
 		model.addAttribute("page", page);
 		return list;
+	}
+	
+	@RequestMapping(value = "xml_11st_parsing")
+	public ArrayList<ProductVO> xml_11st_parsing(String page, Model model) throws ParserConfigurationException, SAXException, IOException {
+		String text = null;
+		try {
+			text = URLEncoder.encode("바지", "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException("검색어 인코딩 실패", e);
+		}
+
+		if (page.equals("")) {
+			page = "0";
+		}
+		
+		String url = "https://openapi.11st.co.kr/openapi/OpenApiService.tmall?key=54d361b6792904635d8f2f63ce566438&apiCode=ProductSearch&keyword=" + text + "&pageSize=20&pageNum=" + page;
+		
+		DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+		Document doc = dBuilder.parse(url);
+																														// 결과
+
+		ArrayList<ProductVO> list = new ArrayList<>();
+		try {
+			NodeList nl = doc.getElementsByTagName("Product");
+			for (int i = 0; i < nl.getLength(); i++) {
+				Node node = (Node) nl.item(i);
+				Element el = (Element) node;
+				ProductVO product = new ProductVO();
+				System.out.println("제목 : " + getTagValue("ProductName", el));
+				System.out.println("가격 : " + getTagValue("SalePrice", el));
+				product.setpNo(i);
+				product.setpName(getTagValue("ProductName", el).replaceAll("'", "&quot;").replaceAll("<b>", "<span style=color:red>").replaceAll("</b>", "</span>"));
+				product.setpPrice(Integer.parseInt(getTagValue("SalePrice", el)));
+				product.setpImgName(getTagValue("ProductCode", el));
+				product.setpImgUrl(getTagValue("ProductImage300", el));
+				list.add(product);
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		model.addAttribute("productList", list);
+		model.addAttribute("page", page);
+		return list;
+	}
+	
+	@RequestMapping("detail_xml_11st_parsing")	
+	public ProductVO detail_xml_11st_parsing(Model model,String pNo) throws ClassNotFoundException, SQLException, ParserConfigurationException, SAXException, IOException {
+		String url = "https://openapi.11st.co.kr/openapi/OpenApiService.tmall?key=54d361b6792904635d8f2f63ce566438&apiCode=ProductSearch&keyword=" + pNo;
+		
+		DocumentBuilderFactory dbFactoty = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactoty.newDocumentBuilder();
+		Document doc = dBuilder.parse(url);
+																														// 결과
+
+		NodeList nl = doc.getElementsByTagName("Product");
+		ProductVO product = null;
+		for (int i = 0; i < nl.getLength(); i++) {
+			Node node = (Node) nl.item(i);
+			Element el = (Element) node;
+			product = new ProductVO();
+			System.out.println("제목 : " + getTagValue("ProductName", el));
+			System.out.println("가격 : " + getTagValue("SalePrice", el));
+			product.setpNo(i);
+			product.setpName(getTagValue("ProductName", el).replaceAll("'", "&quot;").replaceAll("<b>", "<span style=color:red>").replaceAll("</b>", "</span>"));
+			product.setpPrice(Integer.parseInt(getTagValue("SalePrice", el)));
+			product.setpImgName(getTagValue("ProductCode", el));
+			product.setpImgUrl(getTagValue("ProductImage300", el));
+			product.setpCompany(getTagValue("SellerNick", el));
+			product.setpQuantity(Integer.parseInt(getTagValue("BuySatisfy", el)));
+		}
+
+		model.addAttribute("product", product);
+		return product;
 	}
 
 	// tag값의 정보를 가져오는 메소드

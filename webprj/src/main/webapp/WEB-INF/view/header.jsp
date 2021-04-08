@@ -57,7 +57,8 @@ String loginName = (String)session.getAttribute("loginName");
 						<c:param name="cNo" value="3" />
 					</c:url> 
 					<a href="${url}">생활용품</a> 
-					<a href="/parsing/json_parsing?page=0">네이버API</a> 
+					<a href="/parsing/json_parsing?page=0">네이버API</a>
+					<a href="/parsing/xml_11st_parsing?page=0">11번가 API</a> 
 					<a href="/information/list_information">고객센터</a>
 				</nav>
 
