@@ -56,6 +56,14 @@ public class ProductController {
 		model.addAttribute("product", product);
 		return product;
 	}
+	
+	@RequestMapping("list_search")
+	public ArrayList<ProductVO> list_search(Model model,String query) throws ClassNotFoundException, SQLException {
+		System.out.println("search::::::"+query);
+		ArrayList<ProductVO> productList = productDAO.getProductListSearch(query);
+		model.addAttribute("productList", productList);
+		return productList;
+	}
 		
 	@RequestMapping("list_product_json_test")	
 	public ArrayList<ProductVO> listTest(Model model) throws ClassNotFoundException, SQLException, JsonProcessingException, IOException {

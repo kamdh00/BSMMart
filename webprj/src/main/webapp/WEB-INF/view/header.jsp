@@ -4,6 +4,9 @@
 <%@ page session="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%
+String query = (request.getParameter("query") == null? "": request.getParameter("query"));						//검색어
+%>
 <script type="text/javascript">
 function logout(name){				
 	$.ajax({
@@ -31,13 +34,23 @@ String loginName = (String)session.getAttribute("loginName");
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
+				<form name="search" id="search" action="/product/list_search" method="GET">				
 				<%
 				if(loginId != null){					
 				%>
-				<div id="logout" align="right"><span style='color:white; font-weight:bold;'><%=loginName%>님</span> &nbsp;<a href="javascript:logout('<%=loginName%>')" style="color:white;">로그아웃</a></div>
+				<div align="right"  id="logout">
+					<span align="center"><input name="query" id="query" type="text" value="<%=query%>" onKeypress="javascript:pressCheck((event),this);" style="float:left" autocomplete="off"/></span>
+					<button onClick="javascript:doSearch()" style="float:left;margin:5px;">검색</button>
+					<a href="javascript:logout('<%=loginName%>')" style="color:white; float:right">로그아웃</a>
+					<span style='color:white; font-weight:bold;' ><%=loginName%>님</span> &nbsp;
+				</div>
 				<%} else{ %>
-				<div id="login" align="right"><a href="/user/login/" style="color:white;">로그인</a></div>
+				<div id="login" >
+					<span align="center"><input name="query" id="query" type="text" value="<%=query%>" onKeypress="javascript:pressCheck((event),this);" autocomplete="off"/></span>
+					<button onClick="javascript:doSearch()">검색</button>
+					<a href="/user/login/" align="right" style="color:white; float:right;">로그인</a></div>
 				<%} %>
+				</form>
 				<!-- Logo -->				
 				<h1>
 					<a href="/product/list_product" id="logo">BSM-Mart</a>
@@ -65,6 +78,7 @@ String loginName = (String)session.getAttribute("loginName");
 			</div>
 		</div>
 	</div>
+	
 	<div id="banner">
 		<div class="container">
 			<div class="row">

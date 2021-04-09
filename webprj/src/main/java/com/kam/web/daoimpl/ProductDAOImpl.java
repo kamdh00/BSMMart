@@ -103,7 +103,11 @@ public class ProductDAOImpl implements ProductDAO {
 				product.setpName(rs.getString(2));
 				product.setpPrice(rs.getInt(3));
 				product.setpImgName(rs.getString(4));
-				product.setpImgUrl(rs.getString(5));				
+				if(rs.getString(5).startsWith("//")) {
+					product.setpImgUrl(rs.getString(5).replace("//", "https://"));
+				}else {
+					product.setpImgUrl(rs.getString(5));
+				}				
 				
 				products.add(product);			
 			}		 
@@ -123,6 +127,57 @@ public class ProductDAOImpl implements ProductDAO {
 		}
 		return products;
 	}
+	
+	// 제품 검색 리스트 출력
+		@Override
+		public ArrayList<ProductVO> getProductListSearch(String search){
+			// 제품의 이름,가격을 조회하여 제품리스트(products)객체에 추가한다.
+			ArrayList<ProductVO> products=new ArrayList<ProductVO>();
+			Connection conn=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			try{
+				conn = dataSource.getConnection();
+				String sql = "SELECT P_NO, P_NAME, P_PRICE, P_IMG_NAME, P_IMG_URL FROM PRODUCT";
+				if(!search.equals("")) {
+					sql += " WHERE P_NAME like '%"+search+"%'";
+				}
+				
+				pstmt = conn.prepareStatement(sql);			
+//				sql.append("SELECT P_NO, P_NAME, P_PRICE ");
+//				sql.append("FROM PRODUCT ");			
+				
+				rs=pstmt.executeQuery(sql.toString());
+				while(rs.next()){
+					ProductVO product=new ProductVO();
+					product.setpNo(rs.getInt(1));
+					product.setpName(rs.getString(2));
+					product.setpPrice(rs.getInt(3));
+					product.setpImgName(rs.getString(4));
+					if(rs.getString(5).startsWith("//")) {
+						product.setpImgUrl(rs.getString(5).replace("//", "https://"));
+					}else {
+						product.setpImgUrl(rs.getString(5));
+					}
+					
+					products.add(product);			
+				}		 
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			finally{
+				try{
+					if(rs != null) rs.close();
+					if(pstmt != null) pstmt.close();
+					if(conn != null) conn.close();
+				}
+				catch(SQLException se){
+					se.printStackTrace();
+				}
+			}
+			return products;
+		}
 	
 	// 제품 카테고리별 리스트 출력
 	public ArrayList<ProductVO> getProductcNoList(int cNo){

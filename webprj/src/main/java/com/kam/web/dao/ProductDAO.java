@@ -16,4 +16,5 @@ public interface ProductDAO {
 	void modifyProductQuantity(int pNo, int pQuantity) throws SQLException, ClassNotFoundException;
 	ProductVO getProduct(int productNo) throws SQLException, ClassNotFoundException;
 	ArrayList<ProductImgVO> getProductImg(int pNo) throws SQLException, ClassNotFoundException;
+	ArrayList<ProductVO> getProductListSearch(String search);
 }
