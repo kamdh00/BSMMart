@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 import javax.sql.DataSource;
 
@@ -42,26 +45,8 @@ public class ProductDAOImpl implements ProductDAO {
 			pstmt.setInt(6, product.getpQuantity());
 			pstmt.executeUpdate();
 			pstmt.close();
-			
-			ArrayList<ProductImgVO> imgFiles = product.getImgFileList();
 		
 			sql.delete(0, sql.length());
-
-			sql.append("INSERT INTO PRODUCT_IMG( ");
-			sql.append("PI_NO, P_NO, C_NO, PI_NAME, PI_TEMPNAME, PI_FILESIZE) ");
-			sql.append("VALUES( PRODUCT_IMG_SEQ.NEXTVAL, ?, ?, ?, ?, ? )");
-			for (ProductImgVO imgFile : imgFiles) {
-				pstmt = conn.prepareStatement(sql.toString());
-				
-				pstmt.setInt(1, product.getpNo());
-				pstmt.setInt(2, product.getcNo());
-				pstmt.setString(3, imgFile.getpIName());
-				pstmt.setString(4, imgFile.getpITempName());
-				pstmt.setLong(5, imgFile.getpIFileSize());
-
-				pstmt.executeUpdate();
-				pstmt.close();
-			}
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -151,7 +136,23 @@ public class ProductDAOImpl implements ProductDAO {
 				while(rs.next()){
 					ProductVO product=new ProductVO();
 					product.setpNo(rs.getInt(1));
-					product.setpName(rs.getString(2));
+					String name = rs.getString(2);
+					int index = 0; 
+				    int cnt = 0;
+					do{
+				      //짧은 문자열의 위치 
+				      index = name.indexOf(search, index+search.length()); 
+				      //더이상 찾는 문자가 없으면 종료 
+				      if(index == -1) break; 
+				      //찾은 문자의 위치 출력 
+				      //비교횟수 증가 
+				      cnt++;
+				   }while(true);
+					System.out.println(cnt+":"+name);
+					if(name.contains(search)) {
+						name = name.replaceAll(search, "<span style=color:red>"+search+"</span>");
+					}
+					product.setpName(name);
 					product.setpPrice(rs.getInt(3));
 					product.setpImgName(rs.getString(4));
 					if(rs.getString(5).startsWith("//")) {
@@ -159,7 +160,7 @@ public class ProductDAOImpl implements ProductDAO {
 					}else {
 						product.setpImgUrl(rs.getString(5));
 					}
-					
+					product.setpRank(cnt);
 					products.add(product);			
 				}		 
 			}
@@ -175,6 +176,10 @@ public class ProductDAOImpl implements ProductDAO {
 				catch(SQLException se){
 					se.printStackTrace();
 				}
+			}
+			Collections.sort(products);
+			for(ProductVO pv:products) {
+				System.out.println(pv.getpRank()+":"+pv.getpName());
 			}
 			return products;
 		}
@@ -216,14 +221,14 @@ public class ProductDAOImpl implements ProductDAO {
 					sql.append("SELECT PI_NAME ");
 					sql.append("FROM PRODUCT_IMG ");
 					sql.append("WHERE P_NO=? ");					
-					pstmt2=conn.prepareStatement(sql.toString());
+//					pstmt2=conn.prepareStatement(sql.toString());
 					pstmt2.setInt(1, no);
 					
 					rsf=pstmt2.executeQuery();
 					while(rsf.next()){
 						ProductImgVO imgFile=new ProductImgVO();
 						imgFile.setpIName(rsf.getString(1));												
-						product.addImgFile(imgFile);//��[�߿�] 
+//						product.addImgFile(imgFile);//��[�߿�] 
 					}
 				}
 				catch(Exception e){

@@ -1,8 +1,6 @@
 package com.kam.web.vo;
 
-import java.util.ArrayList;
-
-public class ProductVO {
+public class ProductVO implements Comparable<ProductVO>{
 	private int pNo;//상품 번호
 	private int cNo;//상품 분류 번호
 	private String pName;//상품명
@@ -13,8 +11,7 @@ public class ProductVO {
 	private int pQuantity;//상품 재고 수량
 	private String pDetail;//상품 상세 설명
 	private String pImgDetail;//상품 상세 이미지
-	
-	private ArrayList<ProductImgVO> imgFileList=new ArrayList<ProductImgVO>();
+	private int pRank;	// 상품 검색 순위
 
 	public String getpImgName() {
 		return pImgName;
@@ -40,81 +37,48 @@ public class ProductVO {
 		return pNo;
 	}
 
-
-
 	public void setpNo(int pNo) {
 		this.pNo = pNo;
 	}
-
-
 
 	public int getcNo() {
 		return cNo;
 	}
 
-
-
 	public void setcNo(int cNo) {
 		this.cNo = cNo;
 	}
-
-
 
 	public String getpName() {
 		return pName;
 	}
 
-
-
 	public void setpName(String pName) {
 		this.pName = pName;
 	}
-
-
 
 	public int getpPrice() {
 		return pPrice;
 	}
 
-
-
 	public void setpPrice(int pPrice) {
 		this.pPrice = pPrice;
 	}
-
-
 
 	public String getpCompany() {
 		return pCompany;
 	}
 
-
-
 	public void setpCompany(String pCompany) {
 		this.pCompany = pCompany;
 	}
-
-
 
 	public int getpQuantity() {
 		return pQuantity;
 	}
 
-
-
 	public void setpQuantity(int pQuantity) {
 		this.pQuantity = pQuantity;
-	}
-
-
-
-	public ArrayList<ProductImgVO> getImgFileList() {
-		return imgFileList;
-	}
-
-
-	public void setImgFileList(ArrayList<ProductImgVO> imgFileList) {
-		this.imgFileList = imgFileList;
 	}
 
 	public String getpDetail() {
@@ -133,8 +97,18 @@ public class ProductVO {
 		this.pImgDetail = pImgDetail;
 	}
 
-	//image 추가
-	public void addImgFile(ProductImgVO imgFile){
-		imgFileList.add(imgFile);
+	public int getpRank() {
+		return pRank;
 	}
+
+	public void setpRank(int pRank) {
+		this.pRank = pRank;
+	}
+
+	@Override
+	public int compareTo(ProductVO o) {		
+		return this.getpRank() > o.getpRank()? -1 : 0;
+	}
+	
+	
 }
